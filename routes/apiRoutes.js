@@ -1,33 +1,15 @@
-const db = require("../models/book");
+const router = require("express").Router();
+const booksController = require("../controllers/booksController");
 
-module.exports = function (app) {
-    app.get("/api/books/", function (req, res) {
-        db.Book
-            .find({})
-            .sort({ date: -1 })
-            .then(results => res.json(results))
-            .catch(err => res.status(422).json(err));
-    });
+// Matches with "/api/books"
+router.route("/")
+    .get(booksController.findAll)
+    .post(booksController.create);
 
-    app.get("/api/books/:id", function (req, res) {
-        db.Book
-            .findById(req.params.id)
-            .then(results => res.json(results))
-            .catch(err => res.status(422).json(err));
-    });
+// Matches with "/api/books/:id"
+router.route("/:id")
+    .get(booksController.findById)
+    .put(booksController.update)
+    .delete(booksController.remove);
 
-    app.post("/api/books", function (req, res) {
-        db.Book
-            .create(req.body)
-            .then(results => res.json(results))
-            .catch(err => res.status(422).json(err));
-    });
-
-    app.delete("/api/books/:id", function (req, res) {
-        db.Book
-            .findById({ _id: req.params.id })
-            .then(results => results.remove())
-            .then(results => res.json(results))
-            .catch(err => res.status(422).json(err));
-    });
-}
+module.exports = router;

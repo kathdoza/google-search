@@ -13,7 +13,7 @@ class BookResult extends React.Component {
         this.handleDeleteClick = this.handleDeleteClick.bind(this);
     }
 
-    handleSaveClick = function (e) {
+    handleSaveClick = function (event) {
         this.setState({ saved: true });
         const bookData = {
             title: this.props.title,
@@ -22,8 +22,8 @@ class BookResult extends React.Component {
             img: this.props.img,
             description: this.props.description
         }
-        e.preventDefault();
-        API.addBookToDB(bookData).then(
+        event.preventDefault();
+        API.saveBook(bookData).then(
             (response) => {
                 console.log(response);
             }
@@ -34,9 +34,9 @@ class BookResult extends React.Component {
         );
     }
 
-    handleDeleteClick(e) {
+    handleDeleteClick(event) {
         this.setState({ deleted: true });
-        e.preventDefault();
+        event.preventDefault();
         API.deleteBook(this.props.id).then(
             (response) => {
                 console.log(response);
@@ -59,18 +59,16 @@ class BookResult extends React.Component {
                     </div>
                     <div className="btnDiv">
                         {
-                            // if link to book exists include View button else do not
+                       
                             (this.props.link) ? <a href={this.props.link} target="_blank" rel="noopener noreferrer"><button type="button" name="view">View</button></a> : null
                         }
                         {
-                            // if this.props.path is "/" display save button else display Delete button
                             (this.props.path === "/") ? <button type="button" name="save" onClick={this.handleSaveClick} disabled={this.state.saved}>{(this.state.saved) ? "Saved" : "Save"}</button> : <button type="button" name="Delete" onClick={this.handleDeleteClick} disabled={this.state.deleted}>Delete</button>
                         }
                     </div>
                 </div>
                 <div className="row">
                     {(this.props.img) ? <img src={
-                        // if smallthubmail exists on this.props.img use that else if thumbnail exists on this.props.img use that else leave src empty
                         (this.props.img.smallThumbnail) ? this.props.img.smallThumbnail :
                             (this.props.img.thumbnail) ? this.props.img.thumbnail : ""
                     } alt="book cover" /> : null}

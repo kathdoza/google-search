@@ -14,17 +14,22 @@ class Search extends React.Component {
         this.handleChange = this.handleChange.bind(this);
     }
 
-    handleChange(event) {
+    handleChange = event => {
         event.preventDefault();
         this.setState({ bookInput: event.target.value })
     }
 
-    handleSearchClick(event) {
+    handleSearchClick = event => {
         event.preventDefault();
+        console.log(this.state.bookInput);
+        // console.log(this.state);
         API.searchBooks(this.state.bookInput)
             .then(
                 (response) => {
+                    // console.log(this);
+                    console.log(response.data)
                     this.setState({ bookData: response.data });
+                    //  console.log(this.state.bookData);
                     this.setState({ bookInput: "" });
                 }
             );

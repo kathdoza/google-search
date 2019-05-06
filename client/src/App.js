@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "./App.css";
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import Search from "./pages/Search";
-// import Saved from "./pages/Saved";
+import Saved from "./pages/Saved";
 import Nav from "./components/Nav/Nav";
 import Header from "./components/Header/Header";
 
@@ -15,7 +15,7 @@ class App extends Component {
           <Header />
           <Switch>
             <Route exact path="/" component={Search}/>
-            {/* <Route path="/saved" component={Saved}/> */}
+            <Route path="/saved" component={Saved}/>
           </Switch>
         </div>
       </Router>
