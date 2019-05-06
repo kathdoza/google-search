@@ -1,14 +1,17 @@
 import React from "react";
-import BookResults from "../components/BookResults";
+import BookResults from "./BookResults/BookResults";
+
 
 function Results(props) {
     // console.log(props);
     // console.log(props.path);
     if (props.path === "/") {
+        // console.log(props);
         return (
             <div id="resultsContainer">
                 <h3>Results Found</h3>
                 {props.bookData.map((book) => {
+                    // console.log(book);
                     const bookInfo = book.volumeInfo;
                     return <BookResults
                         title={bookInfo.title}
@@ -17,7 +20,8 @@ function Results(props) {
                         link={bookInfo.canonicalVolumeLink}
                         img={bookInfo.imageLinks}
                         path={props.path}
-                        key={book.id} />
+                        key={book.id} 
+                        />
                 })}
             </div>
         );

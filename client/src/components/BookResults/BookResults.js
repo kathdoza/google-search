@@ -1,6 +1,7 @@
 import React from "react";
-import API from "../utils/API";
+import API from "../../utils/API";
 import { BrowserRouter as Router } from "react-router-dom";
+import "./style.css";
 
 class BookResult extends React.Component {
     constructor(props) {
@@ -51,7 +52,7 @@ class BookResult extends React.Component {
 
     render() {
         return (
-            <div className="bookResult" id={(this.props.id) ? this.props.id : null} style={{ display: this.state.deleted ? "none" : "block" }}>
+            <div className="bookResult" id={(this.props.id) ? this.props.id : null}>
                 <div className="row">
                     <div className="aboutBook">
                         <h4>{this.props.title}</h4>

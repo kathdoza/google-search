@@ -1,5 +1,5 @@
 import React from "react";
-import SearchForm from "../components/SearchForm";
+import SearchForm from "../components/SearchForm/SearchForm";
 import Results from "../components/Results";
 import API from "../utils/API";
 
@@ -21,15 +21,15 @@ class Search extends React.Component {
 
     handleSearchClick = event => {
         event.preventDefault();
-        console.log(this.state.bookInput);
+        // console.log(this.state.bookInput);
         // console.log(this.state);
         API.searchBooks(this.state.bookInput)
             .then(
                 (response) => {
                     // console.log(this);
-                    console.log(response.data)
-                    this.setState({ bookData: response.data });
-                    //  console.log(this.state.bookData);
+                    // console.log(response.data.items)
+                    this.setState({ bookData: response.data.items });
+                     console.log(this.state.bookData);
                     this.setState({ bookInput: "" });
                 }
             );
@@ -37,12 +37,15 @@ class Search extends React.Component {
 
     render() {
         return (
-            <main>
+            <div>
                 <SearchForm handleChange={this.handleChange} handleSearchClick={this.handleSearchClick} />
-                {(this.state.bookData.length > 0) ?
-                    <Results bookData={this.state.bookData} path={this.props.match.path} /> : null
+                {this.state.bookData ?
+                    (<Results bookData={this.state.bookData} path={this.props.match.path} />) 
+                    : (
+                        <h3>No Results to Display</h3>
+                      )
                 }
-            </main>
+            </div>
         );
     }
 }
