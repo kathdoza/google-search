@@ -16,6 +16,7 @@ class BookResult extends React.Component {
 
     handleSaveClick = function (event) {
         this.setState({ saved: true });
+        // console.log(this.props.title);
         const bookData = {
             title: this.props.title,
             authors: this.props.authors,
@@ -23,6 +24,7 @@ class BookResult extends React.Component {
             img: this.props.img,
             description: this.props.description
         }
+        console.log(bookData);
         event.preventDefault();
         API.saveBook(bookData).then(
             (response) => {
@@ -52,29 +54,32 @@ class BookResult extends React.Component {
 
     render() {
         return (
-            <div className="bookResult" id={(this.props.id) ? this.props.id : null}>
-                <div className="row">
-                    <div className="aboutBook">
-                        <h4>{this.props.title}</h4>
-                        <p>By: {(this.props.authors) ? this.props.authors.join(", ") : "N/A"}</p>
+            <div className="bookResult container" id={(this.props.id) ? this.props.id : null}>
+                <div className="container">
+                    <div className="row">
+                        <div className="aboutBook">
+                            <h4>{this.props.title}</h4>
+                            <p>By: {(this.props.authors) ? this.props.authors.join(", ") : "N/A"}</p>
+                        </div>
+                        <div className="btnDiv">
+                            {
+
+                                (this.props.link) ? <a href={this.props.link} target="_blank" rel="noopener noreferrer"><button className="btn btn-dark" type="button" name="view">View</button></a> : null
+                            }
+                            {
+                                (this.props.path === "/") ? <button className="btn btn-primary" type="button" name="save" onClick={this.handleSaveClick} disabled={this.state.saved}>{(this.state.saved) ? "Saved" : "Save"}</button> : <button type="button" name="Delete" onClick={this.handleDeleteClick} disabled={this.state.deleted}>Delete</button>
+                            }
+                        </div>
                     </div>
-                    <div className="btnDiv">
-                        {
-                       
-                            (this.props.link) ? <a href={this.props.link} target="_blank" rel="noopener noreferrer"><button type="button" name="view">View</button></a> : null
-                        }
-                        {
-                            (this.props.path === "/") ? <button type="button" name="save" onClick={this.handleSaveClick} disabled={this.state.saved}>{(this.state.saved) ? "Saved" : "Save"}</button> : <button type="button" name="Delete" onClick={this.handleDeleteClick} disabled={this.state.deleted}>Delete</button>
-                        }
+                    <div className="row">
+                        {(this.props.img) ? <img src={
+                            (this.props.img.smallThumbnail) ? this.props.img.smallThumbnail :
+                                (this.props.img.thumbnail) ? this.props.img.thumbnail : ""
+                        } alt="book cover" /> : null}
+                        <p>{(this.props.description) ? this.props.description : "N/A"}</p>
                     </div>
                 </div>
-                <div className="row">
-                    {(this.props.img) ? <img src={
-                        (this.props.img.smallThumbnail) ? this.props.img.smallThumbnail :
-                            (this.props.img.thumbnail) ? this.props.img.thumbnail : ""
-                    } alt="book cover" /> : null}
-                    <p>{(this.props.description) ? this.props.description : "N/A"}</p>
-                </div>
+
             </div>
         );
     }
