@@ -6,6 +6,7 @@ import Saved from "./pages/Saved";
 import Nav from "./components/Nav/Nav";
 import Header from "./components/Header/Header";
 import Wrapper from "./components/Wrapper";
+require('dotenv').config()
 
 class App extends Component {
   render() {

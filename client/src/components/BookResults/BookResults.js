@@ -15,7 +15,9 @@ class BookResult extends React.Component {
     }
 
     handleSaveClick = function (event) {
+        event.preventDefault();
         this.setState({ saved: true });
+        // console.log(event);
         // console.log(this.props.title);
         const bookData = {
             title: this.props.title,
@@ -24,11 +26,10 @@ class BookResult extends React.Component {
             img: this.props.img,
             description: this.props.description
         }
-        console.log(bookData);
-        event.preventDefault();
+        // console.log(bookData);
         API.saveBook(bookData).then(
             (response) => {
-                console.log(response);
+                console.log("book saved!");
             }
         ).catch(
             (err) => {

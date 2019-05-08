@@ -29,7 +29,7 @@ class Search extends React.Component {
                     // console.log(this);
                     // console.log(response.data.items)
                     this.setState({ bookData: response.data.items });
-                     console.log(this.state.bookData);
+                    //  console.log(this.state.bookData);
                     this.setState({ bookInput: "" });
                 }
             );
